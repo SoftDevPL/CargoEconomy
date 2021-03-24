@@ -33,11 +33,11 @@ public class ClearMoneyCommand implements CommandExecutor {
                 return true;
             }
             economy.withdrawPlayer(player, economy.getBalance(player));
-            sender.sendMessage(CargoEconomy.convertColors("&2Balance &ffor player: &f&l" + player.getName() + " &a has been reseted"));
+            sender.sendMessage(CargoEconomy.convertColors("&2Balance &ffor player: &f&l" + player.getName() + " &a has been reset"));
             return true;
         }
         economy.withdrawPlayer(((Player) sender).getPlayer(), economy.getBalance(((Player) sender).getPlayer()));
-        sender.sendMessage(CargoEconomy.convertColors("&aYour balance has been reseted"));
+        sender.sendMessage(CargoEconomy.convertColors("&aYour balance has been reset"));
 
         return true;
     }

@@ -10,6 +10,7 @@ import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+import wg.cargoeco.eco.cargoecocomy.commands.CommandsManager;
 import wg.cargoeco.eco.cargoecocomy.database.SQLManager;
 import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
 
@@ -48,6 +49,7 @@ public final class CargoEconomy extends JavaPlugin {
         instance = this;
         sqlManager = new SQLManager();
         sqlManager.init();
+        new CommandsManager().init();
 
 
         if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
