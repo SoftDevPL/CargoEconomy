@@ -1,6 +1,4 @@
 package wg.cargoeco.eco.cargoecocomy.commands;
-
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -9,10 +7,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
+import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
 
 public abstract class EconomyCommand implements CommandExecutor {
 
-    protected final Economy economy;
+    protected final BudgetEconomy economy;
 
     public EconomyCommand(PluginCommand command) {
         this.economy = CargoEconomy.getInstance().getEconomy();

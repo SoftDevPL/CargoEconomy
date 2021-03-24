@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import wg.cargoeco.eco.cargoecocomy.commands.CommandsManager;
 import wg.cargoeco.eco.cargoecocomy.database.SQLManager;
 import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
+import wg.cargoeco.eco.cargoecocomy.engine.JoinListener;
 
 import java.util.Arrays;
 
@@ -22,7 +23,7 @@ public final class CargoEconomy extends JavaPlugin {
     @Getter
     private static CargoEconomy instance;
     @Getter
-    private Economy economy = null;
+    private BudgetEconomy economy;
     @Getter
     private SQLManager sqlManager;
 
@@ -48,14 +49,13 @@ public final class CargoEconomy extends JavaPlugin {
         instance = this;
         sqlManager = new SQLManager();
         sqlManager.init();
-        new CommandsManager().init();
-
-
         if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
-            economy = new BudgetEconomy();
+            this.economy = new BudgetEconomy();
             Bukkit.getServer().getServicesManager().register(Economy.class, economy,
                     this, ServicePriority.Highest);
         }
+        new JoinListener().init();
+        new CommandsManager().init();
         enablingMessage();
     }
 

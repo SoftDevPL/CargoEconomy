@@ -3,6 +3,7 @@ package wg.cargoeco.eco.cargoecocomy.engine;
 import com.sun.istack.internal.NotNull;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
 import wg.cargoeco.eco.cargoecocomy.database.Database;
@@ -27,6 +28,7 @@ public class BudgetEconomy implements Economy {
         database = CargoEconomy.getInstance().getSqlManager().getDatabase();
         accounts = database.getAllAccounts();
         banks = database.getAllBanks();
+        Bukkit.getOnlinePlayers().forEach(this::createPlayerAccount);
     }
 
 

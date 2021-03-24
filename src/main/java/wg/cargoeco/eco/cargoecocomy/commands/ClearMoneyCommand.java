@@ -1,7 +1,5 @@
 package wg.cargoeco.eco.cargoecocomy.commands;
 
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,10 +7,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
+import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
 
 public class ClearMoneyCommand implements CommandExecutor {
 
-    private final Economy economy;
+    private final BudgetEconomy economy;
 
     public ClearMoneyCommand(PluginCommand pluginCommand) {
         pluginCommand.setExecutor(this);
