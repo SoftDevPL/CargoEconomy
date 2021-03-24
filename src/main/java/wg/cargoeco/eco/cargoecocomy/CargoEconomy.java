@@ -23,7 +23,6 @@ public final class CargoEconomy extends JavaPlugin {
     private static CargoEconomy instance;
     @Getter
     private Economy economy = null;
-
     @Getter
     private SQLManager sqlManager;
 
