@@ -11,12 +11,15 @@ public final class CargoEconomy extends JavaPlugin {
 
     @Getter
     private static CargoEconomy instance;
+    private BudgetEconomy economy = null;
+
 
     @Override
     public void onEnable() {
         instance = this;
         if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
-            Bukkit.getServer().getServicesManager().register(Economy.class, new BudgetEconomy(),
+            economy = new BudgetEconomy();
+            Bukkit.getServer().getServicesManager().register(Economy.class, economy,
                     this, ServicePriority.Highest);
         }
     }

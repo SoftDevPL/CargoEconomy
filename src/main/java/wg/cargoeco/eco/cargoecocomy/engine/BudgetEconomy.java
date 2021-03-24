@@ -38,11 +38,6 @@ public class BudgetEconomy implements Economy {
         return banks.stream().filter(bank -> bank.getBankName().equals(bankName)).findAny();
     }
 
-    @NotNull
-    private Optional<Bank> getBankByOwner(UUID ownerUUID) {
-        return banks.stream().filter(bank -> bank.getOwnerUUID().equals(ownerUUID)).findAny();
-    }
-
     private void addAccountToDatabase(Account account) {
         //todo
     }
@@ -56,6 +51,10 @@ public class BudgetEconomy implements Economy {
     }
 
     private void updateBankMoneyInDatabase(Bank bank) {
+        //todo
+    }
+
+    private void removeBankFromDatabase(Bank bank){
         //todo
     }
 
@@ -242,7 +241,10 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse createBank(String name, String player) {
-        return null;
+        OfflinePlayer foundPlayer = this.getOfflinePlayer(player);
+        if (foundPlayer == null) return playerNotFoundResponse();
+
+        return createBank(name, foundPlayer);
     }
 
     @Override
@@ -263,6 +265,7 @@ public class BudgetEconomy implements Economy {
         if (this.banks.removeIf(bank -> {
             if (bank.getBankName().equals(name)) {
                 amount.set(bank.getMoney());
+                this.removeBankFromDatabase(bank);
                 return true;
             }
             return false;
@@ -362,21 +365,29 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public boolean createPlayerAccount(String playerName) {
-        return false;
+        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        if (foundPlayer == null) return false;
+
+        return createPlayerAccount(foundPlayer);
     }
 
     @Override
     public boolean createPlayerAccount(OfflinePlayer player) {
-        return false;
+        if(this.hasAccount(player)) return true;
+
+        Account account = new Account(player.getUniqueId(), 0);
+        this.accounts.add(account);
+        this.addAccountToDatabase(account);
+        return true;
     }
 
     @Override
     public boolean createPlayerAccount(String playerName, String worldName) {
-        return false;
+        return createPlayerAccount(playerName);
     }
 
     @Override
     public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
-        return false;
+        return createPlayerAccount(player);
     }
 }
