@@ -25,13 +25,13 @@ public class TransferCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         //sender is not a player
         if(!(sender instanceof Player)){
-            sender.sendMessage(ChatColor.RED + "Only player can execute this command");
+            sender.sendMessage(CargoEconomy.convertColors("&cOnly player can execute this command"));
             return true;
         }
 
         //no arguments
         if(args.length < 2){
-            sender.sendMessage(CommandsManager.getDescription(label, command));
+            sender.sendMessage(CargoEconomy.convertColors("&c" +CommandsManager.getDescription(label, command)));
             return true;
         }
 
@@ -41,14 +41,14 @@ public class TransferCommand implements CommandExecutor {
             amount = Double.parseDouble(args[1]);
         }
         catch (NumberFormatException e){
-            sender.sendMessage(ChatColor.RED + "Wrong second argument");
+            sender.sendMessage(CargoEconomy.convertColors("&cWrong second argument"));
             return true;
         }
 
         //receiver does not exists
         OfflinePlayer playerToSend = CargoEconomy.getOfflinePlayer(args[0]);
         if(playerToSend==null){
-            sender.sendMessage(ChatColor.RED + "Player " + args[0] + " not found");
+            sender.sendMessage(CargoEconomy.convertColors("&fPlayer " + args[0] + " &cnot found"));
             return true;
         }
 
@@ -56,14 +56,15 @@ public class TransferCommand implements CommandExecutor {
         Player player = (Player) sender;
         EconomyResponse result = economy.withdrawPlayer(player, amount);
         if(result.type == EconomyResponse.ResponseType.FAILURE){
-            player.sendMessage(ChatColor.RED + "You don't have enough money!");
+            player.sendMessage(CargoEconomy.convertColors("&cYou don't have enough money!"));
             return true;
         }
         economy.depositPlayer(playerToSend, result.amount);
-        player.sendMessage(ChatColor.GREEN + "Successfully transfer your money");
+        player.sendMessage(CargoEconomy.convertColors("&2Successfully transfer your money"));
         if(playerToSend.isOnline()){
-            playerToSend.getPlayer().sendMessage(ChatColor.GREEN + "You receive: " + economy.format(result.amount) +
-                    " from " + player.getName());
+            playerToSend.getPlayer().sendMessage(
+                    CargoEconomy.convertColors("&fYou receive: &a" + economy.format(result.amount) +
+                    " &ffrom &a" + player.getName()));
         }
         return true;
     }

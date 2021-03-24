@@ -22,21 +22,19 @@ public class BalanceCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(!(sender instanceof Player)){
-            sender.sendMessage("Only player can execute this command");
+            sender.sendMessage(CargoEconomy.convertColors("&cOnly player can execute this command"));
             return true;
         }
         if(args.length>0){
             OfflinePlayer player = CargoEconomy.getOfflinePlayer(args[0]);
             if(player == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found");
+                sender.sendMessage(CargoEconomy.convertColors("&cPlayer not found"));
                 return true;
             }
-            sender.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + player.getName()
-                    + ChatColor.RESET + ChatColor.GREEN + " has " + economy.format(economy.getBalance(player)));
+            sender.sendMessage(CargoEconomy.convertColors("&fPlayer:&f&l " + player.getName() + "&fhas: &a" + economy.format(economy.getBalance(player))));
             return true;
         }
-        sender.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD +
-                "Balance: " + ChatColor.RESET + ChatColor.GREEN + economy.format(economy.getBalance((Player) sender)));
+        sender.sendMessage(CargoEconomy.convertColors("&fBalance: &a" +economy.format(economy.getBalance((Player) sender))));
 
 
         return true;
