@@ -8,7 +8,6 @@ import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
 import wg.cargoeco.eco.cargoecocomy.database.Database;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,12 +19,14 @@ public class BudgetEconomy implements Economy {
     public final static String CURRENCY_SYMBOL = "$";
     public final static String CURRENCY_PLURAL = "dolars";
     public final static String CURRENCY_SINGULAR = "dolar";
-    private final List<Account> accounts = new ArrayList<>();
-    private final List<Bank> banks = new ArrayList<>();
+    private final List<Account> accounts;
+    private final List<Bank> banks;
     private final Database database;
 
     public BudgetEconomy(){
         database = CargoEconomy.getInstance().getSqlManager().getDatabase();
+        accounts = database.getAllAccounts();
+        banks = database.getAllBanks();
     }
 
 
