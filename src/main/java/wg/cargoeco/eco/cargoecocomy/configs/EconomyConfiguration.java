@@ -11,7 +11,7 @@ public class EconomyConfiguration extends ConfigAccessor {
 
 
     public void init() {
-        super.init("EconomyConfiguration");
+        super.init("CargoConfiguration");
         this.currencySymbol = getStringPath(path + "currencySymbol");
         this.singularSymbol = getStringPath(path + "currencySymbol");
         this.pluralSymbol = getStringPath(path + "currencySymbol");

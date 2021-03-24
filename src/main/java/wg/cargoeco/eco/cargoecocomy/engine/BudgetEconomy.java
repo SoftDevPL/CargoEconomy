@@ -27,7 +27,7 @@ public class BudgetEconomy implements Economy {
 
     public BudgetEconomy(){
         EconomyConfiguration config = CargoEconomy.getInstance().getConfigsManager().getEconomyConfiguration();
-        CURRENCY_SINGULAR = config.getCurrencySymbol();
+        CURRENCY_SINGULAR = config.getSingularSymbol();
         CURRENCY_PLURAL = config.getPluralSymbol();
         CURRENCY_SYMBOL = config.getCurrencySymbol();
 

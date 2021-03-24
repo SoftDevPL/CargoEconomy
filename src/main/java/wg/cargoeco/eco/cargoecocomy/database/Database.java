@@ -21,7 +21,7 @@ public class Database extends CustomSQLInterface {
     private final String money = "money";
 
     public void init() {
-        super.init("AdminGui");
+        super.init("CargoEconomy");
         createEconomyTable(this.economyTableName, this.playerUUID, this.balance);
         createBanksTable(this.banksTable, this.ownerUUID, this.bankName, this.membersUUID, this.money);
     }
