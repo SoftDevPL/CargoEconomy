@@ -107,12 +107,11 @@ public class Database extends CustomSQLInterface {
     }
 
     public void updateBank(Bank bank) {
-        String sql = "UPDATE " + this.banksTable + " SET " + this.ownerUUID + "= ?, SET "+ this.bankName  +"= ?, SET "+ this.money  + " WHERE " + this.ownerUUID + " = ?";
+        String sql = "UPDATE " + this.banksTable + " SET " + this.bankName  +"= ?, SET "+ this.money  + "= ? WHERE " + this.ownerUUID + " = ?";
         insertSomething(pstmt -> {
-            pstmt.setString(1, bank.getOwnerUUID().toString());
-            pstmt.setString(2, bank.getBankName());
-            pstmt.setDouble(3, bank.getMoney());
-            pstmt.setString(4, bank.getOwnerUUID().toString());
+            pstmt.setString(1, bank.getBankName());
+            pstmt.setDouble(2, bank.getMoney());
+            pstmt.setString(3, bank.getOwnerUUID().toString());
         }, sql);
     }
 
