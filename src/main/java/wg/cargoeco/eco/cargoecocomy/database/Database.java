@@ -106,6 +106,17 @@ public class Database extends CustomSQLInterface {
         }, sql);
     }
 
+    public void updateBank(Bank bank) {
+        String sql = "UPDATE " + this.banksTable + " SET " + this.ownerUUID + "= ?, SET "+ this.bankName  +"= ?, SET "+ this.money  + " WHERE " + this.ownerUUID + " = ?";
+        insertSomething(pstmt -> {
+            pstmt.setString(1, bank.getOwnerUUID().toString());
+            pstmt.setString(2, bank.getBankName());
+            pstmt.setDouble(3, bank.getMoney());
+            pstmt.setString(4, bank.getOwnerUUID().toString());
+        }, sql);
+    }
+
+
     public double getPlayerBalance(String playerUUID) {
         String sql = " SELECT * FROM " + this.economyTableName + this.playerUUID + " = " + "\"" + playerUUID + "\"";
         return new Worker<Double>().getSomething(rs -> rs.getDouble(this.balance), sql);
