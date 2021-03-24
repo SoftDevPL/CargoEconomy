@@ -12,4 +12,8 @@ public class Account {
     @NotNull
     private UUID ownerUUID;
     private double money;
+
+    public void addMoney(double amount) {
+        money += amount;
+    }
 }

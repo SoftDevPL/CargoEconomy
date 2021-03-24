@@ -38,9 +38,13 @@ public class Database extends CustomSQLInterface {
     }
 
 
-    public interface DatabaseInsertion<T> {
-        void insert(PreparedStatement pstmt) throws SQLException;
-    }
+    /**
+     * ================================
+     * Database variables
+     * ================================
+     */
+
+    private final String economyTableName = "EconomyTable";
 
     public class Worker<T> {
         public T getSomething(DatabaseOperation<T> operation, String query) {
@@ -57,22 +61,28 @@ public class Database extends CustomSQLInterface {
         }
     }
 
-    /**
-     * ================================
-     *         Database variables
-     * ================================
-     */
+    private final String playerUUID = "playerUUID";
+    private final String balance = "balance";
 
-    private String economyTableName = "EconomyTable";
-    private String playerUUID = "playerUUID";
-    private String balance = "balance";
+    private boolean withdrawAmount(String playerUUID, double amount) {
+        double playerBalance = this.getPlayerBalance(playerUUID);
+        if (playerBalance < amount) {
+            return false;
+        }
+        String sql = "UPDATE " + this.economyTableName + " SET " + this.balance + "= ? WHERE " + this.playerUUID + " = ?";
+        insertSomething(pstmt -> {
+            pstmt.setString(1, playerUUID);
+            pstmt.setDouble(2, playerBalance - amount);
+        }, sql);
+        return true;
+    }
 
     public static final Integer PLAYER_UUID = 0;
     public static final Integer BALANCE = 1;
 
     /**
      * ================================
-     *         Database queries
+     * Database queries
      * ================================
      */
 
@@ -87,20 +97,7 @@ public class Database extends CustomSQLInterface {
         this.createTable(sql, this.databaseUrl);
     }
 
-    private boolean withDrawAmount(String playerUUID, double amount) {
-        double playerBalance = this.getPlayerBalance(playerUUID);
-        if (playerBalance < amount) {
-            return false;
-        }
-        String sql =  "UPDATE " + this.economyTableName + " SET " + this.balance + "= ? WHERE " + this.playerUUID + " = ?";
-        insertSomething(pstmt -> {
-            pstmt.setString(1, playerUUID);
-            pstmt.setDouble(2, playerBalance - amount);
-        }, sql);
-        return true;
-    }
-
-    private void DepositAmount(String playerUUID, double amount) {
+    private void depositAmount(String playerUUID, double amount) {
         double playerBalance = this.getPlayerBalance(playerUUID);
         String sql = "UPDATE " + this.economyTableName + " SET " + this.balance + "= ? WHERE " + this.playerUUID + " = ?";
         insertSomething(pstmt -> {
@@ -113,9 +110,13 @@ public class Database extends CustomSQLInterface {
         String sql = "INSERT INTO " + this.economyTableName + " (" + this.playerUUID + ", " + this.balance + ") VALUES(?,?)";
         insertSomething(pstmt -> {
             pstmt.setString(1, playerUUID);
-            pstmt.setDouble(2,0);
+            pstmt.setDouble(2, 0);
         }, sql);
 
+    }
+
+    public interface DatabaseInsertion {
+        void insert(PreparedStatement pstmt) throws SQLException;
     }
 
     private double getPlayerBalance(String playerUUID) {

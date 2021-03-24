@@ -10,6 +10,8 @@ import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class BudgetEconomy implements Economy {
     public final static int FRACTIONAL_DIGIT = 2;
@@ -17,6 +19,7 @@ public class BudgetEconomy implements Economy {
     public final static String CURRENCY_PLURAL = "dolars";
     public final static String CURRENCY_SINGULAR = "dolar";
     private final List<Account> accounts = new ArrayList<>();
+    private final List<Bank> banks = new ArrayList<>();
 
 
     @Nullable
@@ -28,6 +31,47 @@ public class BudgetEconomy implements Economy {
     @NotNull
     private Optional<Account> getAccount(UUID playerUUID) {
         return accounts.stream().filter(account -> account.getOwnerUUID().equals(playerUUID)).findAny();
+    }
+
+    @NotNull
+    private Optional<Bank> getBankByName(String bankName) {
+        return banks.stream().filter(bank -> bank.getBankName().equals(bankName)).findAny();
+    }
+
+    @NotNull
+    private Optional<Bank> getBankByOwner(UUID ownerUUID) {
+        return banks.stream().filter(bank -> bank.getOwnerUUID().equals(ownerUUID)).findAny();
+    }
+
+    private void addAccountToDatabase(Account account) {
+        //todo
+    }
+
+    private void updateAccountInDatabase(Account account) {
+        //todo
+    }
+
+    private void addBankToDatabase(Bank bank) {
+        //todo
+    }
+
+    private void updateBankMoneyInDatabase(Bank bank) {
+        //todo
+    }
+
+    private EconomyResponse noAccountResponse() {
+        return new EconomyResponse(0, 0,
+                EconomyResponse.ResponseType.FAILURE, "Player does not have account");
+    }
+
+    private EconomyResponse playerNotFoundResponse() {
+        return new EconomyResponse(0, 0,
+                EconomyResponse.ResponseType.FAILURE, "Player not found");
+    }
+
+    private EconomyResponse bankNotExistsResponse() {
+        return new EconomyResponse(0, 0,
+                EconomyResponse.ResponseType.FAILURE, "Bank does not exists");
     }
 
     @Override
@@ -90,9 +134,9 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public double getBalance(String playerName) {
-        OfflinePlayer foundedPlayer = getOfflinePlayer(playerName);
-        if (foundedPlayer == null) return 0;
-        return getBalance(foundedPlayer);
+        OfflinePlayer foundPlayer = getOfflinePlayer(playerName);
+        if (foundPlayer == null) return 0;
+        return getBalance(foundPlayer);
     }
 
     @Override
@@ -132,10 +176,9 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-        OfflinePlayer foundedPlayer = this.getOfflinePlayer(playerName);
-        if (foundedPlayer == null) return new EconomyResponse(0, 0,
-                EconomyResponse.ResponseType.FAILURE, "Player not found");
-        return withdrawPlayer(foundedPlayer, amount);
+        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        if (foundPlayer == null) return playerNotFoundResponse();
+        return withdrawPlayer(foundPlayer, amount);
     }
 
     @Override
@@ -144,8 +187,7 @@ public class BudgetEconomy implements Economy {
 
         //no account
         if (playerAccount == null)
-            return new EconomyResponse(0, 0,
-                    EconomyResponse.ResponseType.FAILURE, "Player does not have account");
+            return noAccountResponse();
 
         //no money
         if (playerAccount.getMoney() < amount) return new EconomyResponse(0, playerAccount.getMoney(),
@@ -153,6 +195,7 @@ public class BudgetEconomy implements Economy {
 
         //ok
         playerAccount.setMoney(playerAccount.getMoney() - amount);
+        this.updateAccountInDatabase(playerAccount);
         return new EconomyResponse(amount, playerAccount.getMoney(), EconomyResponse.ResponseType.SUCCESS, "");
     }
 
@@ -168,22 +211,33 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-        return null;
+        OfflinePlayer foundedPlayer = this.getOfflinePlayer(playerName);
+        if (foundedPlayer == null) return playerNotFoundResponse();
+        return depositPlayer(foundedPlayer, amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
-        return null;
+        Account playerAccount = this.getAccount(player.getUniqueId()).orElse(null);
+
+        //no account
+        if (playerAccount == null)
+            return noAccountResponse();
+
+        //ok
+        playerAccount.addMoney(amount);
+        this.updateAccountInDatabase(playerAccount);
+        return new EconomyResponse(amount, playerAccount.getMoney(), EconomyResponse.ResponseType.SUCCESS, "");
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
-        return null;
+        return depositPlayer(playerName, amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
-        return null;
+        return depositPlayer(player, amount);
     }
 
     @Override
@@ -193,57 +247,117 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse createBank(String name, OfflinePlayer player) {
-        return null;
+        if (this.banks.stream().anyMatch(queried -> queried.getBankName().equals(name))) {
+            return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE,
+                    "Bank with name " + name + " already exists");
+        }
+        Bank bank = new Bank(player.getUniqueId(), name);
+        this.banks.add(bank);
+        this.addBankToDatabase(bank);
+        return new EconomyResponse(0, 0, EconomyResponse.ResponseType.SUCCESS, "");
     }
 
     @Override
     public EconomyResponse deleteBank(String name) {
-        return null;
+        AtomicReference<Double> amount = new AtomicReference<>((double) 0);
+        if (this.banks.removeIf(bank -> {
+            if (bank.getBankName().equals(name)) {
+                amount.set(bank.getMoney());
+                return true;
+            }
+            return false;
+        })) {
+            return new EconomyResponse(amount.get(), 0, EconomyResponse.ResponseType.SUCCESS, "");
+        }
+        return bankNotExistsResponse();
     }
 
     @Override
     public EconomyResponse bankBalance(String name) {
-        return null;
+        Bank bank = this.getBankByName(name).orElse(null);
+        if (bank == null) return bankNotExistsResponse();
+        return new EconomyResponse(0, bank.getMoney(), EconomyResponse.ResponseType.SUCCESS, "");
     }
 
     @Override
     public EconomyResponse bankHas(String name, double amount) {
-        return null;
+        Bank bank = this.getBankByName(name).orElse(null);
+
+        //no bank
+        if (bank == null) return bankNotExistsResponse();
+
+        //no money
+        if (bank.getMoney() < amount)
+            return new EconomyResponse(0, bank.getMoney(), EconomyResponse.ResponseType.FAILURE,
+                    "Bank has not enough money");
+
+        //ok
+        return new EconomyResponse(0, bank.getMoney(), EconomyResponse.ResponseType.SUCCESS, "");
     }
 
     @Override
     public EconomyResponse bankWithdraw(String name, double amount) {
-        return null;
+        Bank bank = this.getBankByName(name).orElse(null);
+        if (bank == null) return bankNotExistsResponse();
+
+        //no money
+        if (bank.getMoney() < amount)
+            return new EconomyResponse(0, bank.getMoney(), EconomyResponse.ResponseType.FAILURE,
+                    "Bank has not enough money");
+
+        //ok
+        bank.addMoney(-amount);
+        this.updateBankMoneyInDatabase(bank);
+        return new EconomyResponse(amount, bank.getMoney(), EconomyResponse.ResponseType.SUCCESS, "");
     }
 
     @Override
     public EconomyResponse bankDeposit(String name, double amount) {
-        return null;
+        Bank bank = this.getBankByName(name).orElse(null);
+        if (bank == null) return bankNotExistsResponse();
+
+        bank.addMoney(amount);
+        this.updateBankMoneyInDatabase(bank);
+        return new EconomyResponse(amount, bank.getMoney(), EconomyResponse.ResponseType.SUCCESS, "");
     }
 
     @Override
     public EconomyResponse isBankOwner(String name, String playerName) {
-        return null;
+        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        if (foundPlayer == null) return playerNotFoundResponse();
+
+        return isBankOwner(name, foundPlayer);
     }
 
     @Override
     public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
-        return null;
+        Bank bank = this.getBankByName(name).orElse(null);
+        if (bank == null) return bankNotExistsResponse();
+
+        return new EconomyResponse(0, bank.getMoney(), bank.getOwnerUUID().equals(player.getUniqueId()) ?
+                EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE, "");
     }
 
     @Override
     public EconomyResponse isBankMember(String name, String playerName) {
-        return null;
+        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        if (foundPlayer == null) return playerNotFoundResponse();
+
+        return isBankMember(name, foundPlayer);
     }
 
     @Override
     public EconomyResponse isBankMember(String name, OfflinePlayer player) {
-        return null;
+        Bank bank = this.getBankByName(name).orElse(null);
+        if (bank == null) return bankNotExistsResponse();
+
+        return new EconomyResponse(0, bank.getMoney(), bank.getMembersUUIDs().contains(player.getUniqueId()) ?
+                EconomyResponse.ResponseType.SUCCESS : EconomyResponse.ResponseType.FAILURE, "");
     }
 
     @Override
     public List<String> getBanks() {
-        return null;
+        return this.banks.stream().map(Bank::getBankName).collect(Collectors.toList());
     }
 
     @Override
