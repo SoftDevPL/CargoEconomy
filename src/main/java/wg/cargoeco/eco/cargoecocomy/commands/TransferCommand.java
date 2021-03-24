@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
 
 public class TransferCommand extends EconomyCommand {
 
@@ -18,14 +19,14 @@ public class TransferCommand extends EconomyCommand {
 
         EconomyResponse result = economy.withdrawPlayer(player, amount);
         if(result.type == EconomyResponse.ResponseType.FAILURE){
-            player.sendMessage(ChatColor.RED + "You don't have enough money!");
+            player.sendMessage(CargoEconomy.convertColors("&cYou don't have enough money!"));
             return true;
         }
         economy.depositPlayer(typedPlayer, result.amount);
-        player.sendMessage(ChatColor.GREEN + "Successfully transfer your money");
+        player.sendMessage(CargoEconomy.convertColors("&aSuccessfully transfer your money"));
         if(typedPlayer.isOnline()){
-            typedPlayer.getPlayer().sendMessage(ChatColor.GREEN + "You receive: " + economy.format(result.amount) +
-                    " from " + player.getName());
+            typedPlayer.getPlayer().sendMessage(CargoEconomy.convertColors("&aYou receive: &f&l" + economy.format(result.amount) +
+                    " &afrom &f" + player.getName()));
         }
         return true;
     }
