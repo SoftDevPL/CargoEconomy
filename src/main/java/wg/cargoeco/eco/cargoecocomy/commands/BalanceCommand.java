@@ -30,7 +30,7 @@ public class BalanceCommand implements CommandExecutor {
                 sender.sendMessage(CargoEconomy.convertColors("&cPlayer not found"));
                 return true;
             }
-            sender.sendMessage(CargoEconomy.convertColors("&fPlayer:&f&l " + player.getName() + "&fhas: &a" + economy.format(economy.getBalance(player))));
+            sender.sendMessage(CargoEconomy.convertColors("&fPlayer:&f&l " + player.getName() + "&f has: &a" + economy.format(economy.getBalance(player))));
             return true;
         }
         sender.sendMessage(CargoEconomy.convertColors("&fBalance: &a" + economy.format(economy.getBalance((Player) sender))));
