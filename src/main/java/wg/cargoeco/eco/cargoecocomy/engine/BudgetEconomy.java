@@ -6,6 +6,7 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
+import wg.cargoeco.eco.cargoecocomy.configs.EconomyConfiguration;
 import wg.cargoeco.eco.cargoecocomy.database.Database;
 
 import java.math.BigDecimal;
@@ -17,14 +18,19 @@ import java.util.stream.Collectors;
 
 public class BudgetEconomy implements Economy {
     public final static int FRACTIONAL_DIGIT = 2;
-    public final static String CURRENCY_SYMBOL = "$";
-    public final static String CURRENCY_PLURAL = "dolars";
-    public final static String CURRENCY_SINGULAR = "dolar";
+    private final String CURRENCY_SYMBOL;
+    private final String CURRENCY_PLURAL;
+    private final String CURRENCY_SINGULAR;
     private final List<Account> accounts;
     private final List<Bank> banks;
     private final Database database;
 
     public BudgetEconomy(){
+        EconomyConfiguration config = CargoEconomy.getInstance().getConfigsManager().getEconomyConfiguration();
+        CURRENCY_SINGULAR = config.getCurrencySymbol();
+        CURRENCY_PLURAL = config.getPluralSymbol();
+        CURRENCY_SYMBOL = config.getCurrencySymbol();
+
         database = CargoEconomy.getInstance().getSqlManager().getDatabase();
         accounts = database.getAllAccounts();
         banks = database.getAllBanks();

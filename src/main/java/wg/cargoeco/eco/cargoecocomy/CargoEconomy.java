@@ -11,6 +11,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import wg.cargoeco.eco.cargoecocomy.commands.CommandsManager;
+import wg.cargoeco.eco.cargoecocomy.configs.ConfigsManager;
 import wg.cargoeco.eco.cargoecocomy.database.SQLManager;
 import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
 import wg.cargoeco.eco.cargoecocomy.engine.JoinListener;
@@ -26,6 +27,8 @@ public final class CargoEconomy extends JavaPlugin {
     private BudgetEconomy economy;
     @Getter
     private SQLManager sqlManager;
+    @Getter
+    private ConfigsManager configsManager;
 
 
     public static String convertColors(String st) {
@@ -47,15 +50,21 @@ public final class CargoEconomy extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        configsManager = new ConfigsManager();
         sqlManager = new SQLManager();
+
+        configsManager.init();
         sqlManager.init();
+
         if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
             this.economy = new BudgetEconomy();
             Bukkit.getServer().getServicesManager().register(Economy.class, economy,
                     this, ServicePriority.Highest);
         }
+
         new JoinListener().init();
         new CommandsManager().init();
+
         enablingMessage();
     }
 

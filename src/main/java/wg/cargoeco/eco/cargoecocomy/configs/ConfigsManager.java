@@ -1,8 +1,11 @@
 package wg.cargoeco.eco.cargoecocomy.configs;
 
+import lombok.Getter;
+
 public class ConfigsManager {
 
-    public EconomyConfiguration economyConfiguration;
+    @Getter
+    private EconomyConfiguration economyConfiguration;
 
     public ConfigsManager() {
         this.economyConfiguration = new EconomyConfiguration();
