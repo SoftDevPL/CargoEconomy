@@ -10,7 +10,7 @@ public class Database extends CustomSQLInterface {
     private final String playerUUID = "playerUUID";
     private final String balance = "balance";
 
-    public void delete(String query) {
+    private void delete(String query) {
         try (Connection conn = Database.this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.executeUpdate();
@@ -19,7 +19,7 @@ public class Database extends CustomSQLInterface {
         }
     }
 
-    public void insertSomething(DatabaseInsertion operation, String query) {
+    private void insertSomething(DatabaseInsertion operation, String query) {
         try (Connection conn = Database.this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             operation.insert(pstmt);
@@ -30,7 +30,7 @@ public class Database extends CustomSQLInterface {
         }
     }
 
-    public void createTable(String query, String databaseUrl) {
+    private void createTable(String query, String databaseUrl) {
         try (Connection conn = DriverManager.getConnection(databaseUrl);
              Statement stmt = conn.createStatement()) {
             stmt.execute(query);
@@ -39,7 +39,7 @@ public class Database extends CustomSQLInterface {
         }
     }
 
-    private boolean withdrawAmount(String playerUUID, double amount) {
+    public boolean withdrawAmount(String playerUUID, double amount) {
         double playerBalance = this.getPlayerBalance(playerUUID);
         if (playerBalance < amount) {
             return false;
@@ -57,12 +57,12 @@ public class Database extends CustomSQLInterface {
         createEconomyDatabase(this.economyTableName, this.playerUUID, this.balance);
     }
 
-    private void createEconomyDatabase(String economyTableName, String playerUUID, String balance) {
+    public void createEconomyDatabase(String economyTableName, String playerUUID, String balance) {
         String sql = "CREATE TABLE IF NOT EXISTS " + economyTableName + " (" + playerUUID + " TEXT NOT NULL, " + balance + " DOUBLE NOT NULL);";
         this.createTable(sql, this.databaseUrl);
     }
 
-    private void depositAmount(String playerUUID, double amount) {
+    public void depositAmount(String playerUUID, double amount) {
         double playerBalance = this.getPlayerBalance(playerUUID);
         String sql = "UPDATE " + this.economyTableName + " SET " + this.balance + "= ? WHERE " + this.playerUUID + " = ?";
         insertSomething(pstmt -> {
@@ -71,7 +71,7 @@ public class Database extends CustomSQLInterface {
         }, sql);
     }
 
-    private void createPlayerAccount(String playerUUID) {
+    public void createPlayerAccount(String playerUUID) {
         String sql = "INSERT INTO " + this.economyTableName + " (" + this.playerUUID + ", " + this.balance + ") VALUES(?,?)";
         insertSomething(pstmt -> {
             pstmt.setString(1, playerUUID);
@@ -80,20 +80,20 @@ public class Database extends CustomSQLInterface {
 
     }
 
-    private double getPlayerBalance(String playerUUID) {
+    public double getPlayerBalance(String playerUUID) {
         String sql = " SELECT * FROM " + this.economyTableName + this.playerUUID + " = " + "\"" + playerUUID + "\"";
         return new Worker<Double>().getSomething(rs -> rs.getDouble(this.balance), sql);
     }
 
-    public interface DatabaseOperation<T> {
+    private interface DatabaseOperation<T> {
         T operate(ResultSet rs) throws SQLException;
     }
 
-    public interface DatabaseInsertion {
+    private interface DatabaseInsertion {
         void insert(PreparedStatement pstmt) throws SQLException;
     }
 
-    public class Worker<T> {
+    private class Worker<T> {
         public T getSomething(DatabaseOperation<T> operation, String query) {
             T temp = null;
             try (Connection conn = Database.this.connect();

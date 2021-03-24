@@ -1,20 +1,30 @@
 package wg.cargoeco.eco.cargoecocomy;
 
+import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+import wg.cargoeco.eco.cargoecocomy.database.SQLManager;
 import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
+
+import java.util.Arrays;
+
 
 public final class CargoEconomy extends JavaPlugin {
 
     @Getter
     private static CargoEconomy instance;
+    @Getter
     private BudgetEconomy economy = null;
+
+    @Getter
+    private SQLManager sqlManager;
 
 
     public static String convertColors(String st) {
@@ -36,6 +46,10 @@ public final class CargoEconomy extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        sqlManager = new SQLManager();
+        sqlManager.init();
+
+
         if (Bukkit.getServer().getPluginManager().getPlugin("Vault") != null) {
             economy = new BudgetEconomy();
             Bukkit.getServer().getServicesManager().register(Economy.class, economy,
@@ -92,5 +106,12 @@ public final class CargoEconomy extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(convertColors("               &2CCCCCCCCCCCCC   &aEEEEEEEEEEEEEEEEEEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors(""));
         getServer().getConsoleSender().sendMessage(convertColors("                      &fAction: &cDisabling....."));
+    }
+
+
+    @Nullable
+    public static OfflinePlayer getOfflinePlayer(String name) {
+        return Arrays.stream(Bukkit.getOfflinePlayers()).filter(player ->
+                player.getName().equalsIgnoreCase(name)).findAny().orElse(null);
     }
 }

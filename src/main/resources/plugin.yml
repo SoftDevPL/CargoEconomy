@@ -2,3 +2,24 @@ name: CargoEcocomy
 version: ${project.version}
 main: wg.cargoeco.eco.cargoecocomy.CargoEconomy
 depend: [ Vault ]
+commands:
+  balance:
+    usage: /balance <player>
+    description: show your balance or another player
+    permission: cargoeconomy.commands.balance
+  transfermoney:
+    usage: /transfer [player] [amount]
+    description: transfer money to [player]
+    permission: cargoeconomy.commands.transfer
+  givemoney:
+    usage: /givemoney [player] [amount]
+    description: give money to [player]
+    permission: cargoeconomy.commands.givemoney
+  clearmoney:
+    usage: /clear [player]
+    description: clear [player]'s money
+    permission: cargoeconomy.commands.clearmoney
+  withdrawmoney:
+    usage: /withdraw [player] [amount]
+    description: clear [player]'s money
+    permission: cargoeconomy.commands.withdraw

@@ -1,15 +1,17 @@
 package wg.cargoeco.eco.cargoecocomy.engine;
 
 import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import wg.cargoeco.eco.cargoecocomy.CargoEconomy;
+import wg.cargoeco.eco.cargoecocomy.database.Database;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -20,13 +22,12 @@ public class BudgetEconomy implements Economy {
     public final static String CURRENCY_SINGULAR = "dolar";
     private final List<Account> accounts = new ArrayList<>();
     private final List<Bank> banks = new ArrayList<>();
+    private final Database database;
 
-
-    @Nullable
-    private OfflinePlayer getOfflinePlayer(String name) {
-        return Arrays.stream(Bukkit.getOfflinePlayers()).filter(player ->
-                player.getName().equalsIgnoreCase(name)).findAny().orElse(null);
+    public BudgetEconomy(){
+        database = CargoEconomy.getInstance().getSqlManager().getDatabase();
     }
+
 
     @NotNull
     private Optional<Account> getAccount(UUID playerUUID) {
@@ -110,7 +111,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public boolean hasAccount(String playerName) {
-        OfflinePlayer foundedPlayer = getOfflinePlayer(playerName);
+        OfflinePlayer foundedPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundedPlayer == null) return false;
         return hasAccount(foundedPlayer);
     }
@@ -133,7 +134,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public double getBalance(String playerName) {
-        OfflinePlayer foundPlayer = getOfflinePlayer(playerName);
+        OfflinePlayer foundPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundPlayer == null) return 0;
         return getBalance(foundPlayer);
     }
@@ -175,7 +176,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        OfflinePlayer foundPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundPlayer == null) return playerNotFoundResponse();
         return withdrawPlayer(foundPlayer, amount);
     }
@@ -210,7 +211,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-        OfflinePlayer foundedPlayer = this.getOfflinePlayer(playerName);
+        OfflinePlayer foundedPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundedPlayer == null) return playerNotFoundResponse();
         return depositPlayer(foundedPlayer, amount);
     }
@@ -241,7 +242,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse createBank(String name, String player) {
-        OfflinePlayer foundPlayer = this.getOfflinePlayer(player);
+        OfflinePlayer foundPlayer = CargoEconomy.getOfflinePlayer(player);
         if (foundPlayer == null) return playerNotFoundResponse();
 
         return createBank(name, foundPlayer);
@@ -326,7 +327,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse isBankOwner(String name, String playerName) {
-        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        OfflinePlayer foundPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundPlayer == null) return playerNotFoundResponse();
 
         return isBankOwner(name, foundPlayer);
@@ -343,7 +344,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse isBankMember(String name, String playerName) {
-        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        OfflinePlayer foundPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundPlayer == null) return playerNotFoundResponse();
 
         return isBankMember(name, foundPlayer);
@@ -365,7 +366,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public boolean createPlayerAccount(String playerName) {
-        OfflinePlayer foundPlayer = this.getOfflinePlayer(playerName);
+        OfflinePlayer foundPlayer = CargoEconomy.getOfflinePlayer(playerName);
         if (foundPlayer == null) return false;
 
         return createPlayerAccount(foundPlayer);

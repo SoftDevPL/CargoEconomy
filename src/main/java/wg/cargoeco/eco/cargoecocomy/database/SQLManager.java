@@ -1,11 +1,14 @@
 package wg.cargoeco.eco.cargoecocomy.database;
 
+import lombok.Getter;
+
 public class SQLManager {
 
-    public Database database;
+    @Getter
+    private Database database;
 
-    public SQLManager(Database database) {
-        this.database = database;
+    public SQLManager() {
+        this.database = new Database();
     }
 
     public void init() {
