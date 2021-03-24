@@ -1,6 +1,8 @@
 package wg.cargoeco.eco.cargoecocomy.commands;
 
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +25,20 @@ public class BalanceCommand implements CommandExecutor {
             sender.sendMessage("Only player can execute this command");
             return true;
         }
-        sender.sendMessage("Balance: " + economy.format(economy.getBalance((Player) sender)));
+        if(args.length>0){
+            OfflinePlayer player = CargoEconomy.getOfflinePlayer(args[0]);
+            if(player == null) {
+                sender.sendMessage(ChatColor.RED + "Player not found");
+                return true;
+            }
+            sender.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + player.getName()
+                    + ChatColor.RESET + ChatColor.GREEN + " has " + economy.format(economy.getBalance(player)));
+            return true;
+        }
+        sender.sendMessage(ChatColor.DARK_GREEN + "" + ChatColor.BOLD +
+                "Balance: " + ChatColor.RESET + ChatColor.GREEN + economy.format(economy.getBalance((Player) sender)));
+
+
         return true;
     }
 }

@@ -40,23 +40,23 @@ public class BudgetEconomy implements Economy {
     }
 
     private void addAccountToDatabase(Account account) {
-        //todo
+        database.createPlayerAccount(account.getOwnerUUID().toString());
     }
 
     private void updateAccountInDatabase(Account account) {
-        //todo
+        database.updatePlayerBalance(account.getOwnerUUID().toString(), account.getMoney());
     }
 
     private void addBankToDatabase(Bank bank) {
-        //todo
+        database.createBankAccount(bank);
     }
 
     private void updateBankMoneyInDatabase(Bank bank) {
-        //todo
+        database.updateBank(bank);
     }
 
     private void removeBankFromDatabase(Bank bank){
-        //todo
+        database.deleteBank(bank);
     }
 
     private EconomyResponse noAccountResponse() {
