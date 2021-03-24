@@ -168,6 +168,7 @@ public class BudgetEconomy implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
+        return null;
     }
 
     @Override
