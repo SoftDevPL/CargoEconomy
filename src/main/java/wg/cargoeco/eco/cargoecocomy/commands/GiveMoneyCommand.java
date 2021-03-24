@@ -16,7 +16,7 @@ public class GiveMoneyCommand extends EconomyCommand {
     public boolean manageMoney(Player sender, double amount, OfflinePlayer typedPlayer) {
         EconomyResponse result = economy.depositPlayer(typedPlayer, amount);
         if(result.type == EconomyResponse.ResponseType.SUCCESS){
-            sender.sendMessage(CargoEconomy.convertColors("&aSuccessfully added &l" + economy.format(result.amount)
+            sender.sendMessage(CargoEconomy.convertColors("&aSuccessfully added &f&l" + economy.format(result.amount)
                     + "&r&a to " + typedPlayer.getName() + "'s account"));
             return true;
         }

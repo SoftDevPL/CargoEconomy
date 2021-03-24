@@ -8,7 +8,7 @@ commands:
     description: show your balance or another player
     permission: cargoeconomy.commands.balance
   transfermoney:
-    usage: /transfer [player] [amount]
+    usage: /transfermoney [player] [amount]
     description: transfer money to [player]
     permission: cargoeconomy.commands.transfer
   givemoney:
