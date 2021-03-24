@@ -1,0 +1,3 @@
+name: CargoEcocomy
+version: ${project.version}
+main: wg.cargoeco.eco.cargoecocomy.CargoEconomy
