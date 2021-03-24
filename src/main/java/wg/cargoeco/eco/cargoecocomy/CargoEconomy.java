@@ -56,20 +56,20 @@ public final class CargoEconomy extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(convertColors("            &2CCC::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("          &2CC:::::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("         &2C:::::CCCCCCCC::::C   &aEE::::::EEEEEEEEE::::E"));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::E"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE::::::EEEEEEEEEE             &fCargoEconomy v" + getPluginVersion()));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::::::::::::E             &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::::::::::::E             &fMade by DevieTeam"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE::::::EEEEEEEEEE"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::E"));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
+        getServer().getConsoleSender().sendMessage(convertColors("       &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::E"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE::::::EEEEEEEEEE             &fCargoEconomy v" + getPluginVersion()));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::::::::::::E             &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::::::::::::E             &fMade by DevieTeam"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE::::::EEEEEEEEEE"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::E"));
+        getServer().getConsoleSender().sendMessage(convertColors("       &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors("         &2C:::::CCCCCCCC::::C   &aEE::::::EEEEEEEE:::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("          &2CC:::::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("            &2CCC::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("               &2CCCCCCCCCCCCC   &aEEEEEEEEEEEEEEEEEEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors(""));
-        getServer().getConsoleSender().sendMessage(convertColors("                         &fAction: &bPlugin Enabled!"));
+        getServer().getConsoleSender().sendMessage(convertColors("                    &fAction: &bPlugin Enabled!"));
     }
 
     private void disablingMessage() {
@@ -78,19 +78,19 @@ public final class CargoEconomy extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(convertColors("            &2CCC::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("          &2CC:::::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("         &2C:::::CCCCCCCC::::C   &aEE::::::EEEEEEEEE::::E"));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::E"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE::::::EEEEEEEEEE             &fCargoEconomy v" + getPluginVersion()));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::::::::::::E             &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::::::::::::E             &fMade by DevieTeam"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE::::::EEEEEEEEEE"));
-        getServer().getConsoleSender().sendMessage(convertColors("     &2C:::::C                   &aE:::::E"));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
+        getServer().getConsoleSender().sendMessage(convertColors("       &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::E"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE::::::EEEEEEEEEE             &fCargoEconomy v" + getPluginVersion()));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::::::::::::E             &fRunning on Spigot - " + getMinecraftVersion(Bukkit.getServer())));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::::::::::::E             &fMade by DevieTeam"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE::::::EEEEEEEEEE"));
+        getServer().getConsoleSender().sendMessage(convertColors("      &2C:::::C                   &aE:::::E"));
+        getServer().getConsoleSender().sendMessage(convertColors("       &2C:::::C       CCCCCC     &aE:::::E       EEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors("         &2C:::::CCCCCCCC::::C   &aEE::::::EEEEEEEE:::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("          &2CC:::::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("            &2CCC::::::::::::C   &aE::::::::::::::::::::E"));
         getServer().getConsoleSender().sendMessage(convertColors("               &2CCCCCCCCCCCCC   &aEEEEEEEEEEEEEEEEEEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors(""));
-        getServer().getConsoleSender().sendMessage(convertColors("                         &fAction: &cDisabling....."));
+        getServer().getConsoleSender().sendMessage(convertColors("                      &fAction: &cDisabling....."));
     }
 }
