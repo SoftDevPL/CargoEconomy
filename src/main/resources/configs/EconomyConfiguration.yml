@@ -1,28 +1,28 @@
-# ==================<Cargo Economy Plugin>==================
+#<==================[Cargo Economy Plugin]==================>
 #
-#        CCCCCCCCCCCCC     EEEEEEEEEEEEEEEEEEEEEE
-#     CCC::::::::::::C     E::::::::::::::::::::E
-#   CC:::::::::::::::C     E::::::::::::::::::::E
-#  C:::::CCCCCCCC::::C     EE::::::EEEEEEEEE::::E
-# C:::::C       CCCCCC       E:::::E       EEEEEE
-#C:::::C                     E:::::E
-#C:::::C                     E::::::EEEEEEEEEE
-#C:::::C                     E:::::::::::::::E
-#C:::::C                     E:::::::::::::::E
-#C:::::C                     E::::::EEEEEEEEEE
-#C:::::C                     E:::::E
-# C:::::C       CCCCCC       E:::::E       EEEEEE
-#  C:::::CCCCCCCC::::C     EE::::::EEEEEEEE:::::E
-#   CC:::::::::::::::C     E::::::::::::::::::::E
-#     CCC::::::::::::C     E::::::::::::::::::::E
-#        CCCCCCCCCCCCC     EEEEEEEEEEEEEEEEEEEEEE
+#             CCCCCCCCCCCCC     EEEEEEEEEEEEEEEEEEEEEE
+#          CCC::::::::::::C     E::::::::::::::::::::E
+#        CC:::::::::::::::C     E::::::::::::::::::::E
+#       C:::::CCCCCCCC::::C     EE::::::EEEEEEEEE::::E
+#      C:::::C       CCCCCC       E:::::E       EEEEEE
+#     C:::::C                     E:::::E
+#     C:::::C                     E::::::EEEEEEEEEE
+#     C:::::C                     E:::::::::::::::E
+#     C:::::C                     E:::::::::::::::E
+#     C:::::C                     E::::::EEEEEEEEEE
+#     C:::::C                     E:::::E
+#      C:::::C       CCCCCC       E:::::E       EEEEEE
+#       C:::::CCCCCCCC::::C     EE::::::EEEEEEEE:::::E
+#        CC:::::::::::::::C     E::::::::::::::::::::E
+#          CCC::::::::::::C     E::::::::::::::::::::E
+#             CCCCCCCCCCCCC     EEEEEEEEEEEEEEEEEEEEEE
 #
-# ==================<Cargo Economy Plugin>==================
+#<=========================[About]=========================>
 # In this file you can set your own currency symbol and more!
-# ====================<!! IMPORTANT !!>=====================
+#<====================[!! IMPORTANT !!]====================>
 # Plugin id Depend on Vault it means
 #  -> to work properly, you need to download it!
-# ==================<Cargo Economy Plugin>==================
+#[==================<Cargo Economy Plugin]=================>
 Configuration:
   # this symbol will display in every plugin which implements value, example: 129219$
   currencySymbol: "$"
