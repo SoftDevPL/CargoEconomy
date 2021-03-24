@@ -16,10 +16,10 @@ commands:
     description: give money to [player]
     permission: cargoeconomy.commands.givemoney
   clearmoney:
-    usage: /clear [player]
+    usage: /clearmoney [player]
     description: clear [player]'s money
     permission: cargoeconomy.commands.clearmoney
   withdrawmoney:
-    usage: /withdraw [player] [amount]
+    usage: /withdrawmoney [player] [amount]
     description: clear [player]'s money
     permission: cargoeconomy.commands.withdraw

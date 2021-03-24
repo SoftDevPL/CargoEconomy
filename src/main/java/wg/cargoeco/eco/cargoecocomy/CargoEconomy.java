@@ -94,6 +94,7 @@ public final class CargoEconomy extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(convertColors("               &2CCCCCCCCCCCCC   &aEEEEEEEEEEEEEEEEEEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors(""));
         getServer().getConsoleSender().sendMessage(convertColors("                    &fAction: &bPlugin Enabled!"));
+        getServer().getConsoleSender().sendMessage(convertColors(""));
     }
 
     private void disablingMessage() {
@@ -116,6 +117,7 @@ public final class CargoEconomy extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(convertColors("               &2CCCCCCCCCCCCC   &aEEEEEEEEEEEEEEEEEEEEEE"));
         getServer().getConsoleSender().sendMessage(convertColors(""));
         getServer().getConsoleSender().sendMessage(convertColors("                      &fAction: &cDisabling....."));
+        getServer().getConsoleSender().sendMessage(convertColors(""));
     }
 
 

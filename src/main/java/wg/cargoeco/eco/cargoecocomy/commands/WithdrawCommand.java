@@ -18,8 +18,8 @@ public class WithdrawCommand extends EconomyCommand {
             sender.sendMessage(CargoEconomy.convertColors("&cPlayer does not have so much money"));
             return true;
         }
-        sender.sendMessage(CargoEconomy.convertColors("&aSuccessfully removed: &l"
-                + economy.format(result.amount) + "&r&from " + typedPlayer.getName() + "'s account"));
+        sender.sendMessage(CargoEconomy.convertColors("&aSuccessfully removed: &f&l"
+                + economy.format(result.amount) + "&afrom &f&l" + typedPlayer.getName() + "'s account"));
         return true;
     }
 }

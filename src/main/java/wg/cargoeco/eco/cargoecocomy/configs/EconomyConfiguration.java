@@ -4,7 +4,7 @@ import wg.cargoeco.eco.cargoecocomy.configs.resourcesConfigGenerator.ConfigAcces
 
 public class EconomyConfiguration extends ConfigAccessor {
 
-    public String path = "Configurations.";
+    public String path = "Configuration.";
     private String currencySymbol;
     private String pluralSymbol;
     private String singularSymbol;
@@ -13,8 +13,8 @@ public class EconomyConfiguration extends ConfigAccessor {
     public void init() {
         super.init("CargoConfiguration");
         this.currencySymbol = getStringPath(path + "currencySymbol");
-        this.singularSymbol = getStringPath(path + "currencySymbol");
-        this.pluralSymbol = getStringPath(path + "currencySymbol");
+        this.singularSymbol = getStringPath(path + "singularSymbol");
+        this.pluralSymbol = getStringPath(path + "pluralSymbol");
     }
 
     public String getCurrencySymbol() {

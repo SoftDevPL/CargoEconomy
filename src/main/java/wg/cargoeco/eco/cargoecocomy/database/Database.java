@@ -13,7 +13,6 @@ public class Database extends CustomSQLInterface {
     private final String economyTableName = "EconomyTable";
     private final String playerUUID = "playerUUID";
     private final String balance = "balance";
-
     private final String banksTable = "banksTable";
     private final String ownerUUID = "ownerUUID";
     private final String bankName = "bankName";
