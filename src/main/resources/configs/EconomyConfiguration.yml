@@ -1,0 +1,4 @@
+Configuration:
+  currencySymbol: "$"
+  pluralSymbol: "dollar"
+  singularSymbol: "dollars"
