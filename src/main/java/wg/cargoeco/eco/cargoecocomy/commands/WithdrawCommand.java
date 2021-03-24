@@ -19,7 +19,7 @@ public class WithdrawCommand extends EconomyCommand {
             return true;
         }
         sender.sendMessage(CargoEconomy.convertColors("&aSuccessfully removed: &f&l"
-                + economy.format(result.amount) + "&afrom &f&l" + typedPlayer.getName() + "'s account"));
+                + economy.format(result.amount) + " &afrom &f&l" + typedPlayer.getName() + "'s account"));
         return true;
     }
 }
