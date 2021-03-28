@@ -17,9 +17,17 @@ import wg.cargoeco.eco.cargoecocomy.engine.BudgetEconomy;
 import wg.cargoeco.eco.cargoecocomy.engine.JoinListener;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 
 public final class CargoEconomy extends JavaPlugin {
+
+    public final Logger logger =  Logger.getLogger("");
+    public static final String ANSI_RESET = "\u001b[0m";
+    public static final String ANSI_RED = "\u001b[31m";
+    public static final String ANSI_CYAN = "\u001b[36m";
+    public static final String ANSI_GREEN = "\u001b[32m";
+    public static final String ANSI_BRIGHT_GREEN = "\u001b[32;1m";
 
     @Getter
     private static CargoEconomy instance;
@@ -75,41 +83,41 @@ public final class CargoEconomy extends JavaPlugin {
     }
 
     private void enablingMessage() {
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("        &2,ad8888ba,   &a88888888888 "));
-        getServer().getConsoleSender().sendMessage(convertColors("       &2d8'      `8b  &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2d8'            &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &288             &a88aaaaa     "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &288             &a88\"\"\"\"\""));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2Y8,            &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("       &2Y8a.    .a8P  &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &2`Y8888Y'    &a88888888888 "));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fCargoEconomy v    "+ getPluginVersion()));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot -  " + getMinecraftVersion(Bukkit.getServer())));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &bPlugin Enabled!"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
+        logger.info(" ");
+        logger.info(ANSI_GREEN + "        ,ad8888ba,  " + ANSI_BRIGHT_GREEN + " 88888888888 " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "       d8'      `8b " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      d8'           " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      88            " + ANSI_BRIGHT_GREEN + " 88aaaaa     " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      88            " + ANSI_BRIGHT_GREEN + " 88\"\"\"\"\"" + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      Y8,           " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "       Y8a.    .a8P " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "         `Y8888Y'   " + ANSI_BRIGHT_GREEN + " 88888888888 " + ANSI_RESET);
+        logger.info(" ");
+        logger.info("         CargoEconomy v"+ getPluginVersion());
+        logger.info("         Running on Spigot - " + getMinecraftVersion(Bukkit.getServer()));
+        logger.info("         Made by DevieTeam");
+        logger.info(" ");
+        logger.info("         Action: " + ANSI_CYAN +"Plugin Enabled!" + ANSI_RESET);
+        logger.info(" ");
     }
 
     private void disablingMessage() {
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("        &2,ad8888ba,   &a88888888888 "));
-        getServer().getConsoleSender().sendMessage(convertColors("       &2d8'      `8b  &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2d8'            &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &288             &a88aaaaa     "));
-        getServer().getConsoleSender().sendMessage(convertColors("      &288             &a88\"\"\"\"\""));
-        getServer().getConsoleSender().sendMessage(convertColors("      &2Y8,            &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("       &2Y8a.    .a8P  &a88          "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &2`Y8888Y'    &a88888888888 "));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fCargoEconomy v    "+ getPluginVersion()));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fRunning on Spigot -  " + getMinecraftVersion(Bukkit.getServer())));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fMade by DevieTeam"));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
-        getServer().getConsoleSender().sendMessage(convertColors("         &fAction: &cDisabling...."));
-        getServer().getConsoleSender().sendMessage(convertColors(" "));
+        logger.info(" ");
+        logger.info(ANSI_GREEN + "        ,ad8888ba,  " + ANSI_BRIGHT_GREEN + " 88888888888 " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "       d8'      `8b " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      d8'           " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      88            " + ANSI_BRIGHT_GREEN + " 88aaaaa     " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      88            " + ANSI_BRIGHT_GREEN + " 88\"\"\"\"\"" + ANSI_RESET);
+        logger.info(ANSI_GREEN + "      Y8,           " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "       Y8a.    .a8P " + ANSI_BRIGHT_GREEN + " 88          " + ANSI_RESET);
+        logger.info(ANSI_GREEN + "         `Y8888Y'   " + ANSI_BRIGHT_GREEN + " 88888888888 " + ANSI_RESET);
+        logger.info(" ");
+        logger.info("         CargoEconomy v"+ getPluginVersion());
+        logger.info("         Running on Spigot - " + getMinecraftVersion(Bukkit.getServer()));
+        logger.info("         Made by DevieTeam");
+        logger.info(" ");
+        logger.info("         Action: " + ANSI_RED +"Disabling...." + ANSI_RESET);
+        logger.info(" ");
     }
 
 

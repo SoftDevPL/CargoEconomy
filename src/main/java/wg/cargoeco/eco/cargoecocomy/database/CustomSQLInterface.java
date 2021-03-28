@@ -96,15 +96,15 @@ public class CustomSQLInterface {
     }
 
     public void createNewDatabase() {
-
         this.databaseUrl = "jdbc:sqlite:" + "plugins/" + this.plugin.getDataFolder().getName() + "/" + this.databaseName;
 
         try (Connection conn = DriverManager.getConnection(this.databaseUrl)) {
-            getServer().getConsoleSender().sendMessage("==> Database Initialization <==");
+            CargoEconomy.getInstance().logger.info(" ");
+            CargoEconomy.getInstance().logger.info("==> Database Initialization <==");
             if (conn != null) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + this.databaseName + ChatColor.GREEN + " -> database has been created!");
+                CargoEconomy.getInstance().logger.info(CargoEconomy.ANSI_CYAN + this.databaseName + CargoEconomy.ANSI_GREEN +" -> database has been created!"+ CargoEconomy.ANSI_RESET);
             } else {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.AQUA + this.databaseName + ChatColor.GREEN + " -> database has been loaded successfully!!");
+                CargoEconomy.getInstance().logger.info(CargoEconomy.ANSI_CYAN + this.databaseName + CargoEconomy.ANSI_GREEN +" -> database has been loaded successfully!"+ CargoEconomy.ANSI_RESET);
             }
 
         } catch (SQLException e) {
