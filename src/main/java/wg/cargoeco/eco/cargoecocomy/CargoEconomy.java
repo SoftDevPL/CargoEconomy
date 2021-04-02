@@ -60,7 +60,6 @@ public final class CargoEconomy extends JavaPlugin {
         instance = this;
         configsManager = new ConfigsManager();
         sqlManager = new SQLManager();
-
         configsManager.init();
         sqlManager.init();
 
