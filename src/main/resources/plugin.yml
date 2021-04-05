@@ -2,7 +2,7 @@ name: CargoEcocomy
 version: ${project.version}
 main: wg.cargoeco.eco.cargoecocomy.CargoEconomy
 description: Simple economy plugin!
-authors: [Zibsion, DJKK12]
+authors: [Devie, DJKK12]
 depend: [ Vault ]
 commands:
   balance:
